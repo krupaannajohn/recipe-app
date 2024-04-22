@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Listings</title>
+    <style>
+        body {
+            background-color: rgb(175, 90, 148); 
+        }
+    </style>
+</head>
+<body>
+    <nav class="row" style="background-image: linear-gradient(to left,rgb(5, 58, 107),rgba(7, 175, 232, 0.726)); color: black;">
+        <div class="col-md-6 offset-md-3 col-lg-3 offset-lg-4 text-center">
+          <h1 style="font-size:xx-large;">SimpleRecipes.com</h1>
+          <h5>Developed by Krupa 22112019</h5>
+        </div>
+      </nav>
+    {% for recipe in recipes %}
+        <div>
+            <h2>{{ recipe.title }}</h2>
+            <p>Ingredients: {{ recipe.ingredients }}</p>
+            <p>Directions: {{ recipe.description }}</p>
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width: 300px; height: 300px;">
+            <form action="{% url 'delete_recipe' recipe.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+    <a href="{% url 'upload' %}">Upload Recipe</a>
+</body>
+</html>
